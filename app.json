@@ -1,18 +1,7 @@
 {
-  "name": "XLICON-V4-MD",
-  "description": "whatsapp md bot build with nodejs",
-  "repository": "https://github.com/salmanytofficial/XLICON-V4-MD",
-  "logo": "https://pbs.twimg.com/media/FO7fojOakAAyYgt?format=jpg&name=900x900",
-  "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    },
-    {
-      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-    },
-    {
-      "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
-    }
-  ]
+	"name": "hitori",
+	"description": "WhatsApp Bot Using Lib Baileys",
+	"repository": "https://github.com/nazedev/hitori",
+	"logo": "https://node-js-sample.herokuapp.com/node.png",
+	"keywords": ["multi-device"]
 }
