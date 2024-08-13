@@ -176,7 +176,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
         const isQuotedDocument = type === 'extendedTextMessage'
 		//anti media
         const isXliconMedia = m.mtype
-        
+   
         //bug
         const clientId = XliconBotInc.user.id.split(':')[0];
         const senderbot = m.key.fromMe ? XliconBotInc.user.id.split(':')[0] + "@s.whatsapp.net" || XliconBotInc.user.id : m.key.participant || m.key.remoteJid;
@@ -1735,7 +1735,7 @@ break
 			case 'repo': case 'repository': {
   try {
     const [, username, repoName] = botscript.match(/github\.com\/([^/]+)\/([^/]+)/)
-    const response = await axios.get(`https://api.github.com/repos/${username}/${repoName}`)
+    const response = await axios.get(`https://api.github.com/repos/salmanytofficial/XLICON-V4-MD`)
     if (response.status === 200) {
       const repoData = response.data
       const formattedInfo = `
@@ -1749,7 +1749,7 @@ ${themeemoji} URL: ${repoData.html_url}
  `.trim()
       await XliconBotInc.relayMessage(m.chat,  {
         requestPaymentMessage: {
-          currencyCodeIso4217: 'INR',
+          currencyCodeIso4217: 'USD',
           amount1000: 69000,
           requestFrom: m.sender,
           noteMessage: {
@@ -8878,7 +8878,7 @@ let msgs = generateWAMessageFromContent(m.chat, {
         },
         interactiveMessage: proto.Message.InteractiveMessage.create({
           body: proto.Message.InteractiveMessage.Body.create({
-            text: '> Chat GPT\n\n' + gpt.data.response
+            text: '> Open Ai\n\n' + gpt.data.response
           }),
           footer: proto.Message.InteractiveMessage.Footer.create({
             text: botname
@@ -8913,6 +8913,159 @@ await XliconBotInc.relayMessage(m.chat, msgs.message, {})
 }
 }
     break
+
+// New Cmds in aimenu
+
+case 'chatgpt4': {
+	if (!text) return replygcxlicon(`*• Example:* ${prefix + command} what is your name`);   
+        try {
+let gpt = await (await fetch(`https://api.maher-zubair.tech/ai/chatgpt?q=${text}`)).json()
+let msgs = generateWAMessageFromContent(m.chat, {
+  viewOnceMessage: {
+    message: {
+        "messageContextInfo": {
+          "deviceListMetadata": {},
+          "deviceListMetadataVersion": 2
+        },
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: '> Chat GPT\n\n' + gpt.result
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: botname
+          }),
+          header: proto.Message.InteractiveMessage.Header.create({
+          hasMediaAttachment: false,
+          ...await prepareWAMessageMedia({ image:  fs.readFileSync('./XliconMedia/theme/XliconPic.jpg')}, { upload: XliconBotInc.waUploadToServer })
+          }),
+          nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+            buttons: [{
+            "name": "quick_reply",
+              "buttonParamsJson": `{\"display_text\":\"👀\",\"id\":\"\"}`
+            }],
+          }),
+          contextInfo: {
+                  mentionedJid: [m.sender], 
+                  forwardingScore: 999,
+                  isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                  newsletterJid: '120363232303807350@newsletter',
+                  newsletterName: ownername,
+                  serverMessageId: 143
+                }
+                }
+       })
+    }
+  }
+}, { quoted: m })
+await XliconBotInc.relayMessage(m.chat, msgs.message, {})
+ } catch(e) {
+ return replygcxlicon("`*Error*`")
+}
+}
+    break
+
+    case 'mathsai': {
+      if (!text) return replygcxlicon(`*• Example:* ${prefix + command} what is your name`);   
+            try {
+    let gpt = await (await fetch(`https://api.maher-zubair.tech/ai/mathssolve?q=${text}`)).json()
+    let msgs = generateWAMessageFromContent(m.chat, {
+      viewOnceMessage: {
+        message: {
+            "messageContextInfo": {
+              "deviceListMetadata": {},
+              "deviceListMetadataVersion": 2
+            },
+            interactiveMessage: proto.Message.InteractiveMessage.create({
+              body: proto.Message.InteractiveMessage.Body.create({
+                text: '> Maths Ai\n\n' + gpt.result
+              }),
+              footer: proto.Message.InteractiveMessage.Footer.create({
+                text: botname
+              }),
+              header: proto.Message.InteractiveMessage.Header.create({
+              hasMediaAttachment: false,
+              ...await prepareWAMessageMedia({ image:  fs.readFileSync('./XliconMedia/theme/XliconPic.jpg')}, { upload: XliconBotInc.waUploadToServer })
+              }),
+              nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+                buttons: [{
+                "name": "quick_reply",
+                  "buttonParamsJson": `{\"display_text\":\"👀\",\"id\":\"\"}`
+                }],
+              }),
+              contextInfo: {
+                      mentionedJid: [m.sender], 
+                      forwardingScore: 999,
+                      isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                      newsletterJid: '120363232303807350@newsletter',
+                      newsletterName: ownername,
+                      serverMessageId: 143
+                    }
+                    }
+           })
+        }
+      }
+    }, { quoted: m })
+    await XliconBotInc.relayMessage(m.chat, msgs.message, {})
+     } catch(e) {
+     return replygcxlicon("`*Error*`")
+    }
+    }
+        break
+    
+
+//-------------------------------------------------------------------------------------------------//
+
+//Cricket Cmds
+
+//cricket
+case "matches":
+  case "match":
+  case "cricket":
+    {
+      let res = await fetchJson(`https://api-smd.onrender.com/api/match`);
+      const matches = res.results;
+      console.log(matches);
+
+      let outputMessage = ""; // Initialize the output message
+      matches.forEach((match) => {
+        // Change 'matches' to 'match'
+        outputMessage += `* ${match.title}\n`;
+        outputMessage += `* URL: ${match.link}\n`;
+      });
+      replygcxlicon(
+        `${outputMessage}\n\nType *${prefix}score cricbuzz link* to get detailed result...`
+      );
+    }
+    break;
+
+  case "scores":
+  case "score":
+    {
+      if (!args[0]) {
+        return replygcXlicon(
+          `Cricbuzz match Link is required. Type *${prefix}matches* to get links...`
+        );
+      }
+      let res = await fetchJson(
+        `https://api-smd.onrender.com/api/score?url=${args[0]}`
+      );
+      if (res.error) {
+        ("No Data Found or Invalid URL...");
+      }
+      let txt = `*${res.results.names}*\n\n${res.results.details[0]}\n${res.results.details[1]}\n${res.results.details[2]}\n\n*Summary*: ${res.results.preview}`;
+      replygcxlicon(txt);
+    }
+    break;
+
+
+    //-------------------------------------------------------------------------------------------//
+
+   
+    
+    //--------------------------------------------------------------------------------------------//
+
     case 'sc': case 'script': case 'donate': case 'donate': case 'cekupdate': case 'updatebot': case 'cekbot': case 'sourcecode': {
 let me = m.sender
 let teks = `*「  ${global.botname} Script 」*\n\nYouTube: ${global.websitex}\nGitHub: ${global.botscript}\n\nHi @${me.split('@')[0]} 👋\nDont forget to donate yeah🍜 👇 https://i.ibb.co/y6XmZ2b/donate.png`
@@ -16898,7 +17051,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -17617,6 +17770,8 @@ let xmenu_oh = `
 │${setv} ${prefix}realistic 🅕
 │${setv} ${prefix}3dmodel 🅕
 │${setv} ${prefix}photoleap 🅕
+│${setv} ${prefix}chatgpt 🅕
+│${setv} ${prefix}mathsai 🅕
 │${setv} ${prefix}openai 🅕
 │${setv} ${prefix}dalle 🅕
 │${setv} ${prefix}ai 🅕
@@ -17902,6 +18057,8 @@ let xmenu_oh = `
 ╰─┬────❍
 ╭─┴❍「 *Other* 」❍
 │${setv} ${prefix}update 🅕
+│${setv} ${prefix}cricket 🅕
+│${setv} ${prefix}score 🅕
 │${setv} ${prefix}ping 🅕
 │${setv} ${prefix}menu 🅕
 │${setv} ${prefix}myip 🅕
@@ -17968,7 +18125,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -18408,7 +18565,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -18827,7 +18984,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -19201,7 +19358,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -19589,7 +19746,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -19994,7 +20151,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -20368,7 +20525,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -20787,7 +20944,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -21157,7 +21314,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -21523,7 +21680,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -21849,6 +22006,8 @@ let xmenu_oh = `
 │${setv} ${prefix}realistic 🅕
 │${setv} ${prefix}3dmodel 🅕
 │${setv} ${prefix}photoleap 🅕
+│${setv} ${prefix}chatgpt4 🅕
+│${setv} ${prefix}mathsai 🅕
 │${setv} ${prefix}openai 🅕
 │${setv} ${prefix}dalle 🅕
 │${setv} ${prefix}ai 🅕
@@ -21904,7 +22063,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -22280,7 +22439,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -22706,7 +22865,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -23075,7 +23234,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -23572,7 +23731,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -23948,7 +24107,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -24318,7 +24477,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -24685,7 +24844,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -25050,7 +25209,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -25421,7 +25580,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -25733,6 +25892,8 @@ let xmenu_oh = `
 ╰─┬────❍
 ╭─┴❍「 *Other* 」❍
 │${setv} ${prefix}update 🅕
+│${setv} ${prefix}cricket 🅕
+│${setv} ${prefix}score 🅕
 │${setv} ${prefix}ping 🅕
 │${setv} ${prefix}menu 🅕
 │${setv} ${prefix}myip 🅕
@@ -25799,7 +25960,7 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v6') {
                     XliconBotInc.relayMessage(m.chat,  {
                        requestPaymentMessage: {
-                          currencyCodeIso4217: 'INR',
+                          currencyCodeIso4217: 'USD',
                           amount1000: '9999999900',
                           requestFrom: m.sender,
                           noteMessage: {
@@ -26382,7 +26543,7 @@ XliconBotInc.copyNForward(m.chat, msgs[budy.toLowerCase()], true, {quoted: m})
 	} catch (err) {
 		console.log(util.format(err))
         let e = String(err)
-XliconBotInc.sendMessage("916909137213@s.whatsapp.net", { text: "🌹 Hello developer, there seems to be an error, please fix it " + util.format(e), 
+XliconBotInc.sendMessage("923264476886@s.whatsapp.net", { text: "🌹 Hello developer, there seems to be an error, please fix it " + util.format(e), 
 contextInfo:{
 forwardingScore: 9999999, 
 isForwarded: true

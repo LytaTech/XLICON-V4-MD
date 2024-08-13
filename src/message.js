@@ -131,16 +131,20 @@ async function GroupParticipantsUpdate(XliconBotInc, { id, participants, action 
                 const xdate = moment.tz('Asia/Kolkata').locale('en-IN').format('DD/MM/YYYY');
                 const xtime = moment().tz('Asia/Kolkata').locale('en-IN').format('HH:mm:ss');
 	            const xmembers = metadata.participants.length
-                xliconbody = `┌─❖
-│「 𝗛𝗶 👋 」
-└┬❖ 「  @${xliconName.split("@")[0]}  」
-   │✑  𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 
-   │✑  ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${xmembers}th
-   │✑  𝗝𝗼𝗶𝗻𝗲𝗱 : 
-   │✑ ${xtime} ${xdate}
-   └───────────────┈ ⳹`
+                xliconbody = `
+┌─❖
+│『  *Hi..!! 🐦*  』
+└┬
+ ◎ 「  @${xliconName.split("@")[0]}  」
+ │ ➪  *Wᴇʟᴄᴏᴍᴇ Tᴏ*
+ ◎      ${metadata.subject} 
+ │ ➪  *Mᴇᴍʙᴇʀ :*
+ ◎      ${xmembers}th 
+ │ ➪  *Jᴏɪɴᴇᴅ :*
+ ◎      ${xtime} ${xdate}
+ │ ➪  *Support by Subscribe My Channel :*
+ ◎      youtube.com/@s4salmanyt
+ └─────────────|`
 let msgs = generateWAMessageFromContent(id, {
   viewOnceMessage: {
     message: {
@@ -185,16 +189,21 @@ await XliconBotInc.relayMessage(id, msgs.message, {})
                 const xlicondate = moment.tz('Asia/Kolkata').locale('en-IN').format('DD/MM/YYYY');
                 const xlicontime = moment().tz('Asia/Kolkata').locale('en-IN').format('HH:mm:ss');
 	            const xliconmembers = metadata.participants.length
-					xliconbody = `┌─❖
-│「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
-└┬❖ 「 @${xliconName.split("@")[0]}  」
-   │✑  𝗟𝗲𝗳𝘁 
-   │✑ ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${xliconmembers}th
-   │✑  𝗧𝗶𝗺𝗲 : 
-   │✑  ${xlicontime} ${xlicondate}
-   └───────────────┈ ⳹`
+					xliconbody = `
+┌─❖
+│『  *Gᴏᴏᴅʙʏᴇ..!! 🍁*  』 
+└┬
+ ◎ 「  @${xliconName.split("@")[0]}  」
+ │ ➪  *Lᴇғᴛ ғʀᴏᴍ*
+ ◎      ${metadata.subject} 
+ │ ➪  *Mᴇᴍʙᴇʀ :*
+ ◎      ${xeonmembers}th
+ │ ➪  *Tɪᴍᴇ :*
+ ◎      ${xlicontime} ${xlicondate}
+ │ ➪  *Support by Subscribe My Channel :*
+ ◎      youtube.com/@s4salmanyt
+ └─────────────||
+`
 let msgs = generateWAMessageFromContent(id, {
   viewOnceMessage: {
     message: {
